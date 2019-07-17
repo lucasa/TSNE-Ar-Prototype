@@ -1,4 +1,4 @@
-package com.gathergood.calum.ardemo
+package com.ar.tsne.ardemo
 
 import org.junit.Test
 

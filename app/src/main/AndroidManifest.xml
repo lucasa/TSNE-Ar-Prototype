@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gathergood.calum.ardemo">
+    package="com.ar.tsne.ardemo">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature
@@ -19,7 +19,7 @@
             android:name="com.google.ar.core"
             android:value="required" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.ar.tsne.ardemo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

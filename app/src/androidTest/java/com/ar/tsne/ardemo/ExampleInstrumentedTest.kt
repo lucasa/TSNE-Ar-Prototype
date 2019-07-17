@@ -1,4 +1,4 @@
-package com.gathergood.calum.ardemo
+package com.ar.tsne.ardemo
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
