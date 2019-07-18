@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>tSNEJS Word2Vec</title>
+
+    <script src="jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="tsne.js" type="text/javascript"></script>
+    <!--<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>-->
+
+    <!-- Tracking code -->
+    <script type="text/javascript">
+
+    </script>
+
+    <script>
+
+        var opt = {
+            dim: 3,
+            epsilon: 10,
+            perplexity: 30
+        };
+        var T = new tsnejs.tSNE(opt); // create a tSNE instance
+
+        var Y;
+
+        var data;
+
+        function updateEmbedding() {
+            var Y = T.getSolution();
+            console.log('solution '+T.iter, Y);
+            var points = JSON.stringify(Y);
+            AndroidInterface.setPoints(points, T.iter+'');
+        }
+
+        var stepnum = 0;
+        function step() {
+            var cost = T.step(); // do a few steps
+            $("#cost").html("iteration " + T.iter + ", cost: " + cost);
+            updateEmbedding();
+        }
+
+        $(window).load(function () {
+            $.getJSON("wordvecs50dtop1000.json", function (j) {
+                data = j;
+
+                AndroidInterface.setWords(JSON.stringify(data.words));
+
+                T.initDataRaw(data.vecs); // init embedding
+                //T.debugGrad();
+                setInterval(step, 0);
+                //step();
+
+            });
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+
+<div style="width:100%; margin-left:auto; margin-right:auto; text-align:left; font-family: arial;">
+    <div>t-SNE running on <a
+            href="http://www.socher.org/index.php/Main/ImprovingWordRepresentationsViaGlobalContextAndMultipleWordPrototypes">50-dimensional
+        word vectors</a>. Uses <a href="https://github.com/karpathy/tsnejs">tsnejs</a> library.
+    </div>
+
+    <br>COST:
+    <div id="cost" style="text-align:left; font-family: Impact;"></div>
+</div>
+
+</body>
+
+</html>
